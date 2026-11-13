@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNIVERSO | El Gran Atractor</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#030614;color:#fff;overflow-x:hidden}
+h1,h2,h3,.logo{font-family:'Orbitron',sans-serif}
+a{color:#a99cff}
+
+/* FONDO */
+.stars{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%)}
+.stars:after{content:'';position:absolute;top:0;left:0;width:100%;height:200%;
+background-image:radial-gradient(2px 2px at 20% 30%,#fff,transparent),radial-gradient(2px 2px at 40% 70%,#fff,transparent),radial-gradient(1px 1px at 90% 40%,#fff,transparent),radial-gradient(1.5px 1.5px at 65% 15%,#cfc8ff,transparent),radial-gradient(1px 1px at 10% 85%,#fff,transparent);
+background-size:600px 600px;animation:drift 120s linear infinite}
+@keyframes drift{to{transform:translateY(-50%)}}
+
+/* HEADER */
+header{position:fixed;top:0;width:100%;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,10,30,.7);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,.1);z-index:10}
+.logo{letter-spacing:3px;font-size:18px}
+.logo span{color:#7c6cff}
+nav a{color:rgba(255,255,255,.7);text-decoration:none;margin-left:25px;font-size:13px;letter-spacing:1px;transition:.3s}
+nav a:hover{color:#fff;text-shadow:0 0 10px #7c6cff}
+
+/* PANTALLAS */
+.pantalla{min-height:100vh;padding:120px 8% 80px;display:flex;align-items:center;justify-content:center}
+.hero{flex-direction:column;text-align:center}
+.hero h1{font-size:clamp(34px,7vw,84px);line-height:1.05;margin-bottom:22px;background:linear-gradient(to bottom,#fff,#7c6cff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 25px rgba(124,108,255,.4))}
+.hero p{max-width:640px;color:rgba(255,255,255,.65);font-size:18px;line-height:1.7}
+.botones{display:flex;gap:15px;flex-wrap:wrap;justify-content:center}
+.btn{margin-top:30px;padding:14px 32px;background:#fff;color:#000;border:none;border-radius:100px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:.3s;font-family:inherit}
+.btn:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(124,108,255,.6)}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25)}
+
+.contenedor{width:100%;max-width:1100px}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;width:100%;align-items:center}
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(20px);border-radius:20px;padding:30px;transition:.3s}
+.card:hover{border-color:rgba(124,108,255,.4);transform:translateY(-4px)}
+.card h2{font-size:30px;margin-bottom:15px}
+.card p{color:rgba(255,255,255,.72);line-height:1.7;font-size:15px}
+.tag{display:inline-block;padding:5px 12px;border-radius:100px;background:rgba(124,108,255,.15);border:1px solid rgba(124,108,255,.3);font-size:11px;color:#a99cff;margin-bottom:15px;letter-spacing:1px}
+
+/* IMÁGENES */
+.imagen{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 50px rgba(124,108,255,.25)}
+.imagen img{display:block;width:100%;height:auto;transition:transform .8s}
+.imagen:hover img{transform:scale(1.06)}
+.imagen figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 18px 14px;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.85);background:linear-gradient(transparent,rgba(0,0,0,.85))}
+
+.stats{display:flex;gap:15px;margin-top:22px}
+.stat{flex:1;background:rgba(0,0,0,.3);border-radius:12px;padding:15px;text-align:center;border:1px solid rgba(255,255,255,.05)}
+.stat b{font-family:'Orbitron';font-size:22px;color:#7c6cff;display:block}
+.stat span{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:1px}
+.enlaces{margin-top:20px;font-size:13px}
+
+/* MARQUESINAS */
+.marquesina{overflow:hidden;white-space:nowrap;padding:16px 0;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);background:rgba(124,108,255,.08)}
+.pista{display:inline-block;animation:marquesina 35s linear infinite}
+.marquesina.inversa .pista{animation-direction:reverse;animation-duration:45s}
+.marquesina:hover .pista{animation-play-state:paused}
+.pista span{display:inline-block;margin:0 28px;font-family:'Orbitron';font-size:14px;letter-spacing:3px;color:#cfc8ff}
+.pista span:before{content:'✦';margin-right:28px;color:#7c6cff}
+.marquesina.inversa{background:rgba(255,255,255,.04)}
+.marquesina.inversa .pista span{font-family:'Inter';font-weight:300;font-size:15px;letter-spacing:1px;color:rgba(255,255,255,.75)}
+@keyframes marquesina{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* CURIOSIDADES */
+.curio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;margin-top:25px}
+.curio h3{font-size:15px;margin-bottom:10px;color:#a99cff}
+.icono{font-size:28px;margin-bottom:10px;display:block}
+.extra{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:center;margin-top:40px}
+.linea{border-left:2px solid rgba(124,108,255,.4);padding-left:22px}
+.linea div{margin-bottom:20px;position:relative}
+.linea div:before{content:'';position:absolute;left:-30px;top:5px;width:12px;height:12px;border-radius:50%;background:#7c6cff;box-shadow:0 0 12px #7c6cff}
+.linea b{color:#a99cff;font-size:13px;letter-spacing:1px}
+.linea p{color:rgba(255,255,255,.7);font-size:14px;line-height:1.6;margin-top:3px}
+
+/* FORMULARIO */
+form label{font-size:12px;color:#999;display:block;margin-top:8px}
+form input,form textarea{width:100%;padding:14px 18px;margin:6px 0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#fff;outline:none;transition:.3s;font-family:inherit}
+form input:focus,form textarea:focus{border-color:#7c6cff;box-shadow:0 0 0 3px rgba(124,108,255,.2)}
+.dato{margin-top:25px;padding:18px;border:1px dashed rgba(255,255,255,.2);border-radius:12px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.6}
+footer{text-align:center;padding:30px;font-size:12px;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.08)}
+
+@media(max-width:900px){
+.grid,.extra,.curio-grid{grid-template-columns:1fr}
+header{padding:15px 20px}nav a{margin-left:12px;font-size:11px}
+.stats{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<header>
+  <div class="logo">UNIVERSO<span> // GA</span></div>
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <a href="#contenido">CONTENIDO</a>
+    <a href="#adicional">INFO</a>
+    <a href="#contacto">CONTACTO</a>
+  </nav>
+</header>
+
+<!-- PANTALLA 1. INICIO -->
+<section id="inicio" class="pantalla hero">
+  <div class="tag">PANTALLA 1. INICIO • PRÁCTICA EL UNIVERSO</div>
+  <h1>EL GRAN<br>ATRACTOR</h1>
+  <p>La fuerza invisible en el centro de Laniakea que arrastra a la Vía Láctea y a 100,000 galaxias a unos 600 km/s hacia lo desconocido.</p>
+  <div class="botones">
+    <button class="btn" onclick="document.getElementById('contenido').scrollIntoView({behavior:'smooth'})">EXPLORAR MISTERIO</button>
+    <button class="btn btn-outline" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">CONTACTO</button>
+  </div>
+</section>
+
+<!-- MARQUESINA 1 -->
+<div class="marquesina">
+  <div class="pista">
+    <span>GRAN ATRACTOR</span><span>LANIAKEA</span><span>ZONA DE EVITACIÓN</span><span>CÚMULO DE NORMA</span><span>SUPERCÚMULO DE SHAPLEY</span><span>VÍA LÁCTEA</span>
+    <span>GRAN ATRACTOR</span><span>LANIAKEA</span><span>ZONA DE EVITACIÓN</span><span>CÚMULO DE NORMA</span><span>SUPERCÚMULO DE SHAPLEY</span><span>VÍA LÁCTEA</span>
+  </div>
+</div>
+
+<!-- PANTALLA 2. CONTENIDO PRINCIPAL -->
+<section id="contenido" class="pantalla">
+  <div class="contenedor grid">
+    <div class="card">
+      <div class="tag">PANTALLA 2. CONTENIDO PRINCIPAL</div>
+      <h2>¿Qué es el Gran Atractor?</h2>
+      <p>
+        Es una anomalía gravitatoria masiva ubicada a unos 150-250 millones de años luz de la Tierra, en dirección a las constelaciones de Norma y Ara. Es el punto hacia el que fluye todo nuestro vecindario cósmico: el supercúmulo Laniakea.<br><br>
+        No podemos verlo directamente porque está escondido detrás de la <b>Zona de Evitación</b>: el polvo y las estrellas de nuestra propia galaxia bloquean la luz visible. Se descubrió a finales de los años 70 y 80, al notar que las galaxias se movían de forma inexplicable.
+      </p>
+      <div class="stats">
+        <div class="stat"><b>150M</b><span>AÑOS LUZ</span></div>
+        <div class="stat"><b>600</b><span>KM/S VELOCIDAD</span></div>
+        <div class="stat"><b>10<sup>16</sup></b><span>MASAS SOLARES</span></div>
+      </div>
+      <p class="enlaces"><b>Enlaces relevantes:</b>
+        <a href="https://es.wikipedia.org/wiki/Gran_Atractor" target="_blank" rel="noopener">Gran Atractor</a> •
+        <a href="https://es.wikipedia.org/wiki/Laniakea" target="_blank" rel="noopener">Laniakea</a> •
+        <a href="https://es.wikipedia.org/wiki/C%C3%BAmulo_de_Norma" target="_blank" rel="noopener">Cúmulo de Norma</a></p>
+    </div>
+
+    <!-- IMAGEN 1 -->
+    <figure class="imagen">
+      <img alt="Flujos de galaxias convergiendo hacia el Gran Atractor" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 480'><defs><radialGradient id='g' cx='50%25' cy='50%25' r='50%25'><stop offset='0' stop-color='white'/><stop offset='.15' stop-color='rgb(169,156,255)'/><stop offset='.5' stop-color='rgb(60,20,130)' stop-opacity='.7'/><stop offset='1' stop-color='black' stop-opacity='0'/></radialGradient><radialGradient id='b' cx='50%25' cy='50%25' r='70%25'><stop offset='0' stop-color='rgb(25,15,60)'/><stop offset='1' stop-color='rgb(3,6,20)'/></radialGradient></defs><rect width='400' height='480' fill='url(%23b)'/><g stroke='rgb(124,108,255)' stroke-width='1.2' fill='none' opacity='.7'><path d='M10 40 Q150 200 200 240'/><path d='M390 30 Q250 200 200 240'/><path d='M0 250 Q100 240 200 240'/><path d='M400 270 Q300 250 200 240'/><path d='M30 460 Q150 300 200 240'/><path d='M380 450 Q250 300 200 240'/><path d='M200 0 Q190 120 200 240'/><path d='M200 480 Q210 360 200 240'/></g><g fill='white'><circle cx='60' cy='85' r='2'/><circle cx='120' cy='150' r='2.5'/><circle cx='330' cy='80' r='2'/><circle cx='270' cy='150' r='2'/><circle cx='70' cy='250' r='2.5'/><circle cx='330' cy='262' r='2'/><circle cx='95' cy='400' r='2'/><circle cx='300' cy='390' r='2.5'/><circle cx='198' cy='100' r='2'/><circle cx='205' cy='390' r='2'/><circle cx='150' cy='245' r='1.5'/><circle cx='255' cy='243' r='1.5'/></g><circle cx='200' cy='240' r='140' fill='url(%23g)'/><circle cx='200' cy='240' r='9' fill='white'/><circle cx='200' cy='240' r='60' fill='none' stroke='rgb(169,156,255)' stroke-dasharray='4 6' opacity='.5'/></svg>">
+      <figcaption>FLUJOS GALÁCTICOS CONVERGIENDO HACIA EL GRAN ATRACTOR </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- MARQUESINA 2 -->
+<div class="marquesina inversa">
+  <div class="pista">
+    <span>Laniakea significa «cielo inmenso» en hawaiano</span><span>Contiene unas 100,000 galaxias</span><span>Mide unos 520 millones de años luz</span><span>La Vía Láctea viaja hacia el Gran Atractor</span><span>Está detrás de la Zona de Evitación</span>
+    <span>Laniakea significa «cielo inmenso» en hawaiano</span><span>Contiene unas 100,000 galaxias</span><span>Mide unos 520 millones de años luz</span><span>La Vía Láctea viaja hacia el Gran Atractor</span><span>Está detrás de la Zona de Evitación</span>
+  </div>
+</div>
+
+<!-- PANTALLA 3. INFO ADICIONAL -->
+<section id="adicional" class="pantalla" style="flex-direction:column">
+  <div class="contenedor">
+    <div class="tag">PANTALLA 3. INFORMACIÓN ADICIONAL</div>
+    <h2 style="font-size:clamp(26px,4vw,42px);margin:20px 0 0">Secretos que no sabías</h2>
+    <div class="curio-grid">
+      <div class="card curio">
+        <span class="icono"></span>
+        <h3>Invisible</h3>
+        <p>Está oculto detrás de nuestra Vía Láctea, por eso tardamos décadas en detectarlo. Hoy se estudia con rayos X, infrarrojo y ondas de radio, que atraviesan el polvo.</p>
+      </div>
+      <div class="card curio">
+        <span class="icono">🌌</span>
+        <h3>Más grande que Shapley</h3>
+        <p>Pensábamos que era lo más grande de la zona, pero la región también es atraída por el Supercúmulo de Shapley, aún más masivo y lejano.</p>
+      </div>
+      <div class="card curio">
+        <span class="icono"></span>
+        <h3>Destino final</h3>
+        <p>La expansión acelerada del universo podría impedir que todo se fusione, pero la región cercana seguirá fluyendo hacia el Gran Atractor durante miles de millones de años.</p>
+      </div>
+    </div>
+
+    <div class="extra">
+      <!-- IMAGEN 2 -->
+      <figure class="imagen">
+        <img alt="Galaxia espiral" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><radialGradient id='c' cx='50%25' cy='50%25' r='50%25'><stop offset='0' stop-color='rgb(255,240,200)'/><stop offset='.25' stop-color='rgb(169,156,255)'/><stop offset='1' stop-color='rgb(20,10,60)' stop-opacity='0'/></radialGradient></defs><rect width='400' height='300' fill='rgb(4,6,22)'/><g fill='white'><circle cx='30' cy='40' r='1.2'/><circle cx='350' cy='60' r='1.5'/><circle cx='90' cy='250' r='1'/><circle cx='320' cy='240' r='1.2'/><circle cx='200' cy='20' r='1'/><circle cx='380' cy='160' r='1'/><circle cx='15' cy='170' r='1.3'/></g><g transform='rotate(-25 200 150)'><ellipse cx='200' cy='150' rx='170' ry='55' fill='url(%23c)' opacity='.55'/><ellipse cx='200' cy='150' rx='130' ry='38' fill='url(%23c)' opacity='.6'/><ellipse cx='200' cy='150' rx='85' ry='24' fill='url(%23c)'/><g fill='none' stroke='rgb(200,190,255)' opacity='.5'><ellipse cx='200' cy='150' rx='150' ry='44' stroke-dasharray='3 7'/><ellipse cx='200' cy='150' rx='110' ry='30' stroke-dasharray='2 6'/></g></g><circle cx='200' cy='150' r='8' fill='rgb(255,250,225)'/></svg>">
+        <figcaption>GALAXIA ESPIRAL COMO LA VÍA LÁCTEA (ILUSTRACIÓN)</figcaption>
+      </figure>
+
+      <div class="linea">
+        <div><b>1970s</b><p>Se detectan movimientos extraños en galaxias cercanas que no encajan con la expansión del universo.</p></div>
+        <div><b>1987</b><p>Un grupo de astrónomos, los «Siete Samuráis», propone la existencia del Gran Atractor.</p></div>
+        <div><b>2014</b><p>Se define Laniakea y se descubre que el Gran Atractor es su centro gravitacional.</p></div>
+        <div><b>Hoy</b><p>Los telescopios de rayos X e infrarrojo siguen mapeando el cúmulo de Norma y su entorno.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PANTALLA 4. CONTACTO -->
+<section id="contacto" class="pantalla">
+  <div class="contenedor grid">
+    <div class="card">
+      <div class="tag">PANTALLA 4. CONTACTO • PASO 13 Y 14</div>
+      <h2>Hablemos del Universo</h2>
+      <p>Déjanos tu mensaje y cuéntanos qué opinas del Gran Atractor.</p>
+      <form style="margin-top:20px" onsubmit="event.preventDefault();alert('¡Mensaje enviado al cosmos!');this.reset()">
+        <label for="n">Campo de nombre</label>
+        <input id="n" type="text" placeholder="Tu nombre" required>
+        <label for="c">Campo de correo electrónico</label>
+        <input id="c" type="email" placeholder="tu@email.com" required>
+        <label for="m">Campo de mensaje</label>
+        <textarea id="m" rows="4" placeholder="¿Qué opinas del Gran Atractor?" required></textarea>
+        <button class="btn" style="width:100%;margin-top:10px" type="submit">ENVIAR →</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2 style="font-size:22px">¿Sabías qué?</h2>
+      <div class="dato">
+        Aunque viajamos hacia el Gran Atractor a unos 600 km/s, está tan lejos que tardaríamos cientos de millones de años en llegar... y el universo en expansión podría evitar que lo alcancemos jamás.
+      </div>
+      <div class="dato">
+        Su masa equivale a decenas de miles de galaxias como la nuestra.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>UNIVERSO // GA • Explorando el cosmos © 2026</footer>
+</body>
+  </html>
